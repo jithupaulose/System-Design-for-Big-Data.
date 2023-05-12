@@ -1,0 +1,55 @@
+DATA Acquisition Design for Big Data Pipelines:
+
+Patterns
+Technologies
+Practices
+
+Four Pattern: File Transfer, extraction client, Ingetion API, Publish-Subscribe
+
+File Transfer Pattern:
+Batch exchanges of Files
+File pushed from Source to Destination
+Acknowledgements
+Archive/Delete after sending files.
+Recieving server may trigger post processing
+Advantage : Simple and easy, Acknowledgement, retry on Failures, Verification, Encription
+Disadvatages: Latency, Scaling, Incremental Transfer
+Usecase : When the client and server have differnt software, Batch, VOLUME of data is small, Remote cleints
+Technolgoies: FTP/FTPS, SCP, HTTP PUT, SFTP , Apache Flume
+
+Extraction Client Pattern:
+Data resides in a database at the source.
+API/Query interface provides access to the source data.
+An extraction client run periodically to extraact incremental data.
+Extraction Data is persisted in a destination database or message queue
+Advantages: Controlled by pipelne, retry on Failure, Easy Verification, Encryption
+Disadvantages: Latency. Parallesim, Adapt to source protocol, Every source need seperate client.
+Usecase : Batch proecss, Internal Databases, External sources with APIs
+Technologies: Sqoop, Data Replicatiion, Service SDKs
+
+Ingetion API Pattern:
+The data pipeline exposes an ingestion API to recieve data.
+Data producers would build clients to push data to the Ingestion APIs from their Source Databases.
+Ingestion API then store the recived data to destination database or message queue.
+Advantages: Large no of clients, Parallesim, client confirm to API, Latency, Enforce Security
+Disadvantages: Payload Sizes, Significant effort on client side, Fluctuating workloads, Interface change management.
+Usecase : Batch/Realtime, Small Payloads, Large number of clients, public APIs
+Technologies: REST APIs, RPC/gRPC, WebSocket, GraphQL
+
+
+Publish-Subscribe Pattern:
+Source runs a publisher service. 
+Suscriber suscribes to the publisher for data consumption. 
+When a new message arrives, the publisher pushes it to its suscribers. 
+Suscriber saves it to the destination database or message queue.
+Advantages: RealTime Streaming, Low Latency, Aysnchromus, Multiple pub and sub, scaling
+Disadvantages: Offset Management, Exactly one processing, large payload sizes, wide area networks, public APIs
+Usecase : Realtime , Streaming, Known Publishers, Multiple consumers, small payloads
+Technologies: Kafka, pulsar, RabbitMQ, ActiveMQ
+
+DATA Acquisition BEST Paractices:
+Understand the USECASE : Batch/Realtime, Acceptanle Latencies, Incremental Data requirements, Data Accuracy expectations.
+Understand the Data source: Format and Protocol, Data Frequency, Delivery Quarantees, Fault Tolerance support.
+Be open to multiple patterns based on source : Unique source types, no one size fits all, independent choices, Decoupled Design.
+Design for Fault Tolerance: Transactions, Missed Messages, Acquistion errors, Exactly once acquisition, Re-acquisition.
+Considering Security and Privacy Requirements: Most vulnerable points, Authentication, Authorization, Security Transport, Fidelity Check, Redaction/ Obfuscation.
