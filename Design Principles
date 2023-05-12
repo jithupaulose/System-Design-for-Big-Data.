@@ -1,0 +1,32 @@
+RealTime Vs Batch
+
+
+Chose the Realtime pipleimne only if the business use case needs it.
+Cost
+Handling Spikes
+Complexity
+Data Integrety
+Latency
+Troubleshooting
+
+To check:
+Critical Business Value
+Maximum Acceptance Latency
+Runtime Resources
+Monitoring and Troubleshooting
+Complexity  - Ensuring Service Levels, Tracking Missing Records, Reporcessing 
+
+
+Distributed Architecture
+
+Multiple independent elements work together to create a seamless End to End solution
+Compute - Technologies - Geo Location - Networks -Teams - Processs
+
+Big Data Distributed Architecuture Capabilities:: 
+Resource Pooling
+Performance
+concurrancy  - parallel processing 
+Flexibilty of Hardware and Software
+Fault Tolerance
+Cost Effectiveness
+
